@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Temperature Converter</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- 
+    This whole box holds the temperature converter.
+    I wrapped everything in one div so so i can style by CSS easily 
+    it as a single card, instead of styling each piece separately.
+  -->
+    <div class="converter-box">
+      <h1>Temperature Converter</h1>
+
+      <!-- here the user types the number they want to convert -->
+      <input type="text" id="tempInput" placeholder="Enter temperature" />
+
+      <!-- dropdown menu that will let the user pick which way to convert -->
+      <select id="conversionType">
+        <option value="CtoF">Celsius to Fahrenheit</option>
+        <option value="FtoC">Fahrenheit to Celsius</option>
+      </select>
+
+      <!-- this is for the button that will trigger the conversion when clicked -->
+      <button id="convertBtn">Convert</button>
+
+      <!-- this paragraph will show the converted result -->
+      <p id="result"></p>
+
+      <!-- this paragraph will show an error message if the input is bad or invalid -->
+      <p id="errorMsg" class="error"></p>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>

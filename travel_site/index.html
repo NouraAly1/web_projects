@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Travel Blog - Home</title>
+    <style>
+      body {
+        font-family: "times new roman", Arial, sans-serif;
+        margin: 40px;
+      }
+
+      h1 {
+        color: #333;
+      }
+
+      /* circle shape is the best so it looks like a clickable button */
+      .number {
+        display: inline-block;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        color: white;
+        text-align: center;
+        line-height: 60px;
+        font-size: 18px;
+        text-decoration: none;
+        margin-right: 15px;
+      }
+
+      /* different color for each number */
+      #europeBlock {
+        background-color: red;
+      }
+      #asiaBlock {
+        background-color: blue;
+      }
+      #americaBlock {
+        background-color: green;
+      }
+      #africaBlock {
+        background-color: orange;
+      }
+
+      /* fade a bit on hover so it feels clickable */
+      .number:hover {
+        opacity: 0.7;
+      }
+
+      .site-nav {
+        margin: 16px 0 20px;
+      }
+
+      .site-nav a {
+        color: darkblue;
+      }
+
+      h2 {
+        color: darkblue;
+        margin-top: 40px;
+      }
+
+      /* countries = purple + bold */
+      ol li {
+        color: purple;
+        font-weight: bold;
+      }
+
+      /* cities = plain black */
+      ul li {
+        color: black;
+        font-weight: normal;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Travel Blog</h1>
+
+    <p class="site-nav"><a href="stories.html">Stories</a></p>
+
+    <!-- id has to match the link below or it is not gonna work -->
+    <a href="#europeSection" class="number" id="europeBlock">1</a>
+    <a href="#asiaSection" class="number" id="asiaBlock">2</a>
+    <a href="#americaSection" class="number" id="americaBlock">3</a>
+    <a href="#africaSection" class="number" id="africaBlock">4</a>
+
+    <hr />
+
+    <h2 id="europeSection">Destination 1: Europe</h2>
+    <!-- ol for countries, ul for cities inside -->
+    <ol>
+      <li>
+        France
+        <ul>
+          <li>Paris</li>
+          <li>Nice</li>
+          <li>Marseille</li>
+        </ul>
+      </li>
+      <li>
+        Italy
+        <ul>
+          <li>Rome</li>
+          <li>Florence</li>
+          <li>Venice</li>
+        </ul>
+      </li>
+      <li>
+        Greece
+        <ul>
+          <li>Athens</li>
+          <li>Thessaloniki</li>
+          <li>Santorini</li>
+        </ul>
+      </li>
+    </ol>
+
+    <h2 id="asiaSection">Destination 2: Asia</h2>
+    <ol>
+      <li>
+        Japan
+        <ul>
+          <li>Tokyo</li>
+          <li>Kyoto</li>
+          <li>Osaka</li>
+        </ul>
+      </li>
+      <li>
+        China
+        <ul>
+          <li>Beijing</li>
+          <li>Shanghai</li>
+          <li>Xi'an</li>
+        </ul>
+      </li>
+      <li>
+        India
+        <ul>
+          <li>New Delhi</li>
+          <li>Mumbai</li>
+          <li>Jaipur</li>
+        </ul>
+      </li>
+    </ol>
+
+    <h2 id="americaSection">Destination 3: America</h2>
+    <ol>
+      <li>
+        USA
+        <ul>
+          <li>New York City</li>
+          <li>Los Angeles</li>
+          <li>Chicago</li>
+        </ul>
+      </li>
+      <li>
+        Brazil
+        <ul>
+          <li>Rio de Janeiro</li>
+          <li>Sao Paulo</li>
+          <li>Salvador</li>
+        </ul>
+      </li>
+      <li>
+        Canada
+        <ul>
+          <li>Toronto</li>
+          <li>Vancouver</li>
+          <li>Montreal</li>
+        </ul>
+      </li>
+    </ol>
+
+    <h2 id="africaSection">Destination 4: Africa</h2>
+    <ol>
+      <li>
+        South Africa
+        <ul>
+          <li>Cape Town</li>
+          <li>Johannesburg</li>
+          <li>Durban</li>
+        </ul>
+      </li>
+      <li>
+        Egypt
+        <ul>
+          <li>Cairo</li>
+          <li>Luxor</li>
+          <li>Sharm El Sheikh</li>
+        </ul>
+      </li>
+      <li>
+        Morocco
+        <ul>
+          <li>Marrakech</li>
+          <li>Casablanca</li>
+          <li>Fez</li>
+        </ul>
+      </li>
+    </ol>
+  </body>
+</html>

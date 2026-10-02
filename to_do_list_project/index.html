@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>To-Do List</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="todo-container">
+      <h1>To-Do List</h1>
+
+      <!-- Input area: where the user types a new task and adds it -->
+      <div class="input-area">
+        <input type="text" id="taskInput" placeholder="Enter new task" />
+        <button id="addTaskBtn">Add Task</button>
+      </div>
+
+      <!-- I left this list empty on purpose. Tasks will be added here by JavaScript later,
+         not typed in by hand, so the list can grow or shrink as the user works -->
+      <ul id="taskList"></ul>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>

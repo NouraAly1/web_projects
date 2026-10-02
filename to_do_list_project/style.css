@@ -1,0 +1,92 @@
+* {
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background-color: #ffffff;
+  padding: 30px;
+}
+
+/* this is to wraps the whole app so it doesn't stretch across the entire screen */
+.todo-container {
+  max-width: 600px;
+  margin: 0 auto;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  padding: 20px;
+}
+
+h1 {
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+/* Input box and the Add Task button sit side by side */
+.input-area {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+#taskInput {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 15px;
+}
+
+#addTaskBtn {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+#addTaskBtn:hover {
+  background-color: #43a047;
+}
+
+/* now i need to removes the default bullet points and spacing browsers add to <ul> */
+#taskList {
+  list-style: none;
+  padding: 0;
+}
+
+.task-item {
+  margin-bottom: 12px;
+}
+
+/* Strikethrough look for a task marked complete.
+   This class gets added/removed by JavaScript in Step 3, not typed by hand */
+.completed .task-text {
+  text-decoration: line-through;
+  color: #999;
+}
+
+.task-text {
+  margin-left: 8px;
+  font-size: 16px;
+}
+
+.edit-btn,
+.remove-btn {
+  background-color: #e05c4b;
+  color: white;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  margin-top: 6px;
+  margin-right: 6px;
+}
+
+.edit-btn:hover,
+.remove-btn:hover {
+  background-color: #c94a3a;
+}

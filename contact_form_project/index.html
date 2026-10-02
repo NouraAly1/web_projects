@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Contact Us Form</title>
+    <style>
+      /* just makes error text stand out in red, small so it doesn't take over the page */
+      .errorMsg {
+        color: red;
+        font-size: 13px;
+        display: block;
+      }
+
+      /* making the boxes wider so it actually looks like a real contact form */
+      input[type="text"],
+      textarea,
+      select {
+        width: 300px;
+        padding: 6px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Contact Us</h1>
+
+    <!-- one form, but two buttons at the bottom do different things -->
+    <!-- Preview button reloads the page using GET so the data shows up in the URL -->
+    <!-- Submit button actually sends the form using POST -->
+    <form id="contactForm" action="submit-contact.php" method="POST">
+      <label for="userName">Name:</label><br />
+      <input type="text" id="userName" name="userName" />
+      <span id="nameError" class="errorMsg"></span><br /><br />
+
+      <label for="userEmail">Email:</label><br />
+      <input type="text" id="userEmail" name="userEmail" />
+      <span id="emailError" class="errorMsg"></span><br /><br />
+
+      <label for="userPhone">Phone Number:</label><br />
+      <input type="text" id="userPhone" name="userPhone" />
+      <span id="phoneError" class="errorMsg"></span><br /><br />
+
+      <label for="userMessage">Message:</label><br />
+      <textarea
+        id="userMessage"
+        name="userMessage"
+        rows="5"
+        cols="40"
+      ></textarea>
+      <span id="messageError" class="errorMsg"></span><br /><br />
+
+      <p>Preferred Contact Method:</p>
+      <input
+        type="radio"
+        id="contactEmail"
+        name="contactMethod"
+        value="Email"
+      />
+      <label for="contactEmail">Email</label>
+
+      <input
+        type="radio"
+        id="contactPhone"
+        name="contactMethod"
+        value="Phone"
+      />
+      <label for="contactPhone">Phone</label>
+
+      <input type="radio" id="contactBoth" name="contactMethod" value="Both" />
+      <label for="contactBoth">Both</label>
+      <br /><br />
+
+      <label for="inquiryType">Inquiry Type:</label><br />
+      <select id="inquiryType" name="inquiryType">
+        <option value="">Select an option</option>
+        <option value="General Inquiry">General Inquiry</option>
+        <option value="Support Request">Support Request</option>
+        <option value="Feedback">Feedback</option></select
+      ><br /><br />
+
+      <!-- this button uses formmethod so it does GET instead of POST, just for the preview -->
+      <button type="submit" id="previewBtn" formmethod="GET" formaction="">
+        Preview
+      </button>
+      <button type="submit" id="submitBtn">Submit</button>
+    </form>
+
+    <!-- this box only shows up after the Preview button reloads the page with the GET data -->
+    <div id="previewBox"></div>
+
+    <script>
+      // grabbing the form and all the error spots ahead of time so its easier to use below
+      const contactForm = document.getElementById("contactForm");
+
+      // this function checks everything and returns true or false depending if it all passed
+      function validateForm() {
+        let isValid = true; // starts true, flips to false if anything fails
+
+        // grabbing the current values typed in
+        const nameValue = document.getElementById("userName").value.trim();
+        const emailValue = document.getElementById("userEmail").value.trim();
+        const phoneValue = document.getElementById("userPhone").value.trim();
+        const messageValue = document
+          .getElementById("userMessage")
+          .value.trim();
+
+        // clearing out old error messages first so they dont just keep stacking up
+        document.getElementById("nameError").textContent = "";
+        document.getElementById("emailError").textContent = "";
+        document.getElementById("phoneError").textContent = "";
+        document.getElementById("messageError").textContent = "";
+
+        // check 1, making sure nothing was left empty
+        if (nameValue === "") {
+          document.getElementById("nameError").textContent =
+            "Please enter your name.";
+          isValid = false;
+        }
+
+        if (emailValue === "") {
+          document.getElementById("emailError").textContent =
+            "Please enter your email.";
+          isValid = false;
+        } else {
+          // check 2, email has to actually look like an email
+          // this regex just checks for something, then @, then something, then a dot, then something
+          const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          if (!emailPattern.test(emailValue)) {
+            document.getElementById("emailError").textContent =
+              "Please enter a valid email address, like name@example.com.";
+            isValid = false;
+          }
+        }
+
+        if (phoneValue === "") {
+          document.getElementById("phoneError").textContent =
+            "Please enter your phone number.";
+          isValid = false;
+        } else {
+          // check 3, phone number needs to be exactly 10 digits, nothing else
+          const phonePattern = /^[0-9]{10}$/;
+          if (!phonePattern.test(phoneValue)) {
+            document.getElementById("phoneError").textContent =
+              "Phone number must be exactly 10 digits, no dashes or spaces.";
+            isValid = false;
+          }
+        }
+
+        if (messageValue === "") {
+          document.getElementById("messageError").textContent =
+            "Please enter a message.";
+          isValid = false;
+        }
+
+        return isValid;
+      }
+
+      // listening for when the form gets submitted, checking which button actually triggered it
+      contactForm.addEventListener("submit", function (event) {
+        // event.submitter tells us which button was clicked, Preview or Submit
+        const clickedButton = event.submitter;
+
+        // only run the validation when its the real Submit button
+        // Preview should still work even if stuff isnt filled out right, since its just a preview
+        if (clickedButton && clickedButton.id === "submitBtn") {
+          const formIsValid = validateForm();
+          if (!formIsValid) {
+            event.preventDefault(); // this stops the form from actually sending if something failed
+          }
+        }
+      });
+
+      // this runs as soon as the page loads, checks if there is stuff in the URL after the ?
+      const queryString = window.location.search;
+
+      if (queryString.length > 0) {
+        // URLSearchParams makes it easy to grab each piece from the GET data
+        const params = new URLSearchParams(queryString);
+
+        const previewName = params.get("userName");
+        const previewEmail = params.get("userEmail");
+        const previewPhone = params.get("userPhone");
+        const previewMessage = params.get("userMessage");
+        const previewContactMethod = params.get("contactMethod");
+        const previewInquiryType = params.get("inquiryType");
+
+        // only show the preview box if there was actually something submitted
+        const previewBox = document.getElementById("previewBox");
+        previewBox.innerHTML = `
+        <hr>
+        <h2>Preview</h2>
+        <p><strong>Name:</strong> ${previewName}</p>
+        <p><strong>Email:</strong> ${previewEmail}</p>
+        <p><strong>Phone Number:</strong> ${previewPhone}</p>
+        <p><strong>Message:</strong> ${previewMessage}</p>
+        <p><strong>Preferred Contact Method:</strong> ${previewContactMethod}</p>
+        <p><strong>Inquiry Type:</strong> ${previewInquiryType}</p>
+      `;
+
+        // also fill the form back in with what they typed so they don't lose it
+        document.getElementById("userName").value = previewName || "";
+        document.getElementById("userEmail").value = previewEmail || "";
+        document.getElementById("userPhone").value = previewPhone || "";
+        document.getElementById("userMessage").value = previewMessage || "";
+        document.getElementById("inquiryType").value = previewInquiryType || "";
+
+        if (previewContactMethod === "Email") {
+          document.getElementById("contactEmail").checked = true;
+        } else if (previewContactMethod === "Phone") {
+          document.getElementById("contactPhone").checked = true;
+        } else if (previewContactMethod === "Both") {
+          document.getElementById("contactBoth").checked = true;
+        }
+      }
+    </script>
+  </body>
+</html>

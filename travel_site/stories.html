@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Travel Stories</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 40px;
+      }
+
+      h1 {
+        color: #333;
+      }
+
+      .site-nav {
+        margin: 16px 0 0;
+      }
+
+      .site-nav a {
+        color: teal;
+      }
+
+      table {
+        border-collapse: collapse;
+        width: 50%;
+        margin-top: 20px;
+      }
+
+      /* colorful border for the table */
+      th,
+      td {
+        border: 2px solid teal;
+        padding: 10px;
+      }
+
+      /* bold header row */
+      th {
+        background-color: teal;
+        color: white;
+      }
+
+      /* every other row is gray */
+      tr:nth-child(even) {
+        background-color: #f0f0f0;
+      }
+
+      td img {
+        width: 120px;
+      }
+
+      /* image fades on hover so it looks clickable */
+      td img:hover {
+        opacity: 0.5;
+      }
+
+      .details {
+        margin-top: 50px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Travel Destinations</h1>
+
+    <p class="site-nav"><a href="index.html">Home</a></p>
+
+    <table>
+      <tr>
+        <th>Destination</th>
+        <th>Attraction</th>
+      </tr>
+      <tr>
+        <td>Paris</td>
+        <td>
+          <!-- when you click image, it will jump jump to info below -->
+          <a href="#parisInfo">
+            <img src="Eiffel-Tower-Paris-blue-sky.jpg" alt="Eiffel Tower" />
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>Rome</td>
+        <td>
+          <a href="#romeInfo">
+            <img src="colosseum-in-rome-3.jpg" alt="Colosseum" />
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>New York</td>
+        <td>
+          <a href="#newYorkInfo">
+            <img src="pexels-svebar15-3913353.jpg" alt="Statue of Liberty" />
+          </a>
+        </td>
+      </tr>
+    </table>
+
+    <!-- these ids has to match the links above -->
+    <div class="details" id="parisInfo">
+      <h3>Paris - Eiffel Tower</h3>
+      <p>
+        The Eiffel Tower is a famous iron tower in Paris, France. It was built
+        in 1889.
+      </p>
+    </div>
+
+    <div class="details" id="romeInfo">
+      <h3>Rome - Colosseum</h3>
+      <p>
+        The Colosseum is an old amphitheater in Rome where gladiators used to
+        fight.
+      </p>
+    </div>
+
+    <div class="details" id="newYorkInfo">
+      <h3>New York - Statue of Liberty</h3>
+      <p>
+        The Statue of Liberty is a big statue in New York. France gave it to the
+        US in 1886.
+      </p>
+    </div>
+  </body>
+</html>

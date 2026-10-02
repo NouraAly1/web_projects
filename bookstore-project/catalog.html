@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Bookstore Inventory</title>
+    <style>
+      /* keeping the font serif-y like the screenshot, nothing too crazy */
+      body {
+        font-family: Georgia, "Times New Roman", serif;
+        max-width: 700px;
+        margin: 40px auto;
+        padding: 20px;
+        border: 1px solid #ddd;
+      }
+      h1 {
+        font-size: 2.2em;
+      }
+      .book-title {
+        font-weight: bold;
+        font-size: 1.2em;
+        margin-top: 15px;
+      }
+      .book-info {
+        margin-left: 25px;
+        line-height: 1.6;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Bookstore Inventory</h1>
+    <ul id="inventoryList">
+      <!-- left this empty on purpose, the JS below fills it in from the JSON data -->
+    </ul>
+
+    <script>
+      // stored the catalog as JSON right here so the page has no server to depend on for this assignment
+      const bookstoreInventory = [
+        {
+          title: "The Great Gatsby",
+          author: { firstName: "F. Scott", lastName: "Fitzgerald" },
+          publicationYear: 1925,
+          details: {
+            publisher: "Charles Scribner's Sons",
+            pageCount: 218,
+            available: true,
+          },
+        },
+        {
+          title: "To Kill a Mockingbird",
+          author: { firstName: "Harper", lastName: "Lee" },
+          publicationYear: 1960,
+          details: {
+            publisher: "J.B. Lippincott & Co.",
+            pageCount: 281,
+            available: true,
+          },
+        },
+        {
+          title: "1984",
+          author: { firstName: "George", lastName: "Orwell" },
+          publicationYear: 1949,
+          details: {
+            publisher: "Secker & Warburg",
+            pageCount: 328,
+            available: false,
+          },
+        },
+      ];
+
+      // grabbing the list once instead of over and over inside the loop, just feels cleaner
+      const listEl = document.getElementById("inventoryList");
+
+      // looping through every book so we don't have to hard-code each <li> by hand
+      bookstoreInventory.forEach((book) => {
+        const item = document.createElement("li");
+
+        // turning true/false into Yes/No because that's how the sample screenshot showed it
+        const availableText = book.details.available ? "Yes" : "No";
+
+        item.innerHTML = `
+        <div class="book-title">${book.title}</div>
+        <div class="book-info">
+          Author: ${book.author.firstName} ${book.author.lastName}<br>
+          Publication Year: ${book.publicationYear}<br>
+          Publisher: ${book.details.publisher}<br>
+          Page Count: ${book.details.pageCount}<br>
+          Available: ${availableText}
+        </div>
+      `;
+
+        listEl.appendChild(item);
+      });
+    </script>
+  </body>
+</html>
