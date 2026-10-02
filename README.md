@@ -14,23 +14,35 @@ This README is the index: what each project does, which web ideas it uses, and h
 
 ## How to open
 
-These are static pages. There is no install step. From the repo root on macOS:
+Most of these are static pages. From the repo root on macOS:
 
 ```bash
 open to_do_list_project/index.html
+open temperature_converter/converter.html
+open contact_form_project/index.html
+open travel_site/index.html
 ```
 
-On another system, open the same file from the browser. Each project below has its own starting file.
+On another system, open the same file from the browser.
+
+The bookstore page reads `catalog.json`, so the browser has to load it from a local server:
+
+```bash
+cd bookstore-project
+python3 -m http.server 8000
+```
+
+Then open `http://localhost:8000/catalog.html`.
 
 ## Project index
 
 | Project | What it does | Web concepts |
 | --- | --- | --- |
-| [To-Do List](to_do_list_project/index.html) | Add a task, mark it complete, edit it, or remove it. Blank input is ignored | separate HTML, CSS, and JavaScript; creating elements; event delegation |
-| [Temperature Converter](temprature_converter/converter.html) | Convert a number between Celsius and Fahrenheit, and reject input that is not a number | functions, `Number`, `toFixed`, updating the page from a button click |
-| [Contact Form](contact_form_project/index.html) | Check name, email, a 10-digit phone number, and message. Preview shows what was typed | form events, regular expressions, `preventDefault`, reading the query string |
+| [To-Do List](to_do_list_project/index.html) | Add a task, mark it complete, edit it in place, or remove it. Blank input is ignored, and the list stays after a refresh | separate HTML, CSS, and JavaScript; creating elements; event delegation; `localStorage` |
+| [Temperature Converter](temperature_converter/converter.html) | Convert a number between Celsius and Fahrenheit, and reject input that is not a number | functions, `Number`, `toFixed`, updating the page from a button click |
+| [Contact Form](contact_form_project/index.html) | Check name, email, a 10-digit phone number, and message. Preview shows what was typed. Submit stays on the page | form events, regular expressions, `preventDefault`, reading the query string |
 | [Travel Site](travel_site/index.html) | Home page lists countries and cities in four regions and jumps to each section. [Stories](travel_site/stories.html) shows three photos that jump to a short description | anchor links, nested lists, tables, images |
-| [Bookstore](bookstore-project/catalog.html) | Inventory page lists title, author, year, publisher, page count, and whether each book is available. [JSON](bookstore-project/JSON) holds the same catalog, and [catalog.xml](bookstore-project/catalog.xml) is the XML Schema for a book | JavaScript objects, rendering a list, XML Schema |
+| [Bookstore](bookstore-project/catalog.html) | Inventory page reads [catalog.json](bookstore-project/catalog.json) and lists title, author, year, publisher, page count, and whether each book is available. [catalog.xml](bookstore-project/catalog.xml) is the XML Schema for a book | `fetch`, rendering a list, JSON, XML Schema |
 
 ## Skills this repo shows
 
@@ -39,7 +51,9 @@ On another system, open the same file from the browser. Each project below has i
 - Selecting elements and listening for clicks
 - Building page content from data instead of typing every row by hand
 - Checking form input before it is sent
-- Describing the same catalog as JSON and as an XML Schema
+- Saving the to-do list in `localStorage`
+- Loading the bookstore catalog from a JSON file
+- Describing that same catalog with an XML Schema
 
 ## How to browse this repository
 

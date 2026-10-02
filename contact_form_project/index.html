@@ -23,10 +23,7 @@
   <body>
     <h1>Contact Us</h1>
 
-    <!-- one form, but two buttons at the bottom do different things -->
-    <!-- Preview button reloads the page using GET so the data shows up in the URL -->
-    <!-- Submit button actually sends the form using POST -->
-    <form id="contactForm" action="submit-contact.php" method="POST">
+    <form id="contactForm" action="">
       <label for="userName">Name:</label><br />
       <input type="text" id="userName" name="userName" />
       <span id="nameError" class="errorMsg"></span><br /><br />
@@ -74,15 +71,16 @@
         <option value="">Select an option</option>
         <option value="General Inquiry">General Inquiry</option>
         <option value="Support Request">Support Request</option>
-        <option value="Feedback">Feedback</option></select
-      ><br /><br />
+        <option value="Feedback">Feedback</option>
+      </select>
+      <br /><br />
 
-      <!-- this button uses formmethod so it does GET instead of POST, just for the preview -->
       <button type="submit" id="previewBtn" formmethod="GET" formaction="">
         Preview
       </button>
       <button type="submit" id="submitBtn">Submit</button>
     </form>
+    <p id="submitMessage"></p>
 
     <!-- this box only shows up after the Preview button reloads the page with the GET data -->
     <div id="previewBox"></div>
@@ -159,13 +157,20 @@
         // event.submitter tells us which button was clicked, Preview or Submit
         const clickedButton = event.submitter;
 
-        // only run the validation when its the real Submit button
-        // Preview should still work even if stuff isnt filled out right, since its just a preview
+        // Preview reloads this page with GET. Submit stays here after the checks pass.
         if (clickedButton && clickedButton.id === "submitBtn") {
+          event.preventDefault();
+          const submitMessage = document.getElementById("submitMessage");
           const formIsValid = validateForm();
           if (!formIsValid) {
-            event.preventDefault(); // this stops the form from actually sending if something failed
+            submitMessage.textContent = "";
+            return;
           }
+          const nameValue = document.getElementById("userName").value.trim();
+          submitMessage.textContent =
+            "Thanks, " +
+            nameValue +
+            ". The form checks passed, and your message stays on this page.";
         }
       });
 
@@ -183,18 +188,27 @@
         const previewContactMethod = params.get("contactMethod");
         const previewInquiryType = params.get("inquiryType");
 
-        // only show the preview box if there was actually something submitted
         const previewBox = document.getElementById("previewBox");
-        previewBox.innerHTML = `
-        <hr>
-        <h2>Preview</h2>
-        <p><strong>Name:</strong> ${previewName}</p>
-        <p><strong>Email:</strong> ${previewEmail}</p>
-        <p><strong>Phone Number:</strong> ${previewPhone}</p>
-        <p><strong>Message:</strong> ${previewMessage}</p>
-        <p><strong>Preferred Contact Method:</strong> ${previewContactMethod}</p>
-        <p><strong>Inquiry Type:</strong> ${previewInquiryType}</p>
-      `;
+        previewBox.replaceChildren();
+
+        const heading = document.createElement("h2");
+        heading.textContent = "Preview";
+        previewBox.append(document.createElement("hr"), heading);
+
+        [
+          ["Name", previewName],
+          ["Email", previewEmail],
+          ["Phone Number", previewPhone],
+          ["Message", previewMessage],
+          ["Preferred Contact Method", previewContactMethod],
+          ["Inquiry Type", previewInquiryType],
+        ].forEach(function (field) {
+          const line = document.createElement("p");
+          const label = document.createElement("strong");
+          label.textContent = field[0] + ": ";
+          line.append(label, document.createTextNode(field[1] || ""));
+          previewBox.append(line);
+        });
 
         // also fill the form back in with what they typed so they don't lose it
         document.getElementById("userName").value = previewName || "";

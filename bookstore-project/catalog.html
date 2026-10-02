@@ -4,7 +4,6 @@
     <meta charset="UTF-8" />
     <title>Bookstore Inventory</title>
     <style>
-      /* keeping the font serif-y like the screenshot, nothing too crazy */
       body {
         font-family: Georgia, "Times New Roman", serif;
         max-width: 700px;
@@ -23,6 +22,7 @@
       .book-info {
         margin-left: 25px;
         line-height: 1.6;
+        white-space: pre-line;
       }
     </style>
   </head>
@@ -33,63 +33,46 @@
     </ul>
 
     <script>
-      // stored the catalog as JSON right here so the page has no server to depend on for this assignment
-      const bookstoreInventory = [
-        {
-          title: "The Great Gatsby",
-          author: { firstName: "F. Scott", lastName: "Fitzgerald" },
-          publicationYear: 1925,
-          details: {
-            publisher: "Charles Scribner's Sons",
-            pageCount: 218,
-            available: true,
-          },
-        },
-        {
-          title: "To Kill a Mockingbird",
-          author: { firstName: "Harper", lastName: "Lee" },
-          publicationYear: 1960,
-          details: {
-            publisher: "J.B. Lippincott & Co.",
-            pageCount: 281,
-            available: true,
-          },
-        },
-        {
-          title: "1984",
-          author: { firstName: "George", lastName: "Orwell" },
-          publicationYear: 1949,
-          details: {
-            publisher: "Secker & Warburg",
-            pageCount: 328,
-            available: false,
-          },
-        },
-      ];
-
-      // grabbing the list once instead of over and over inside the loop, just feels cleaner
       const listEl = document.getElementById("inventoryList");
 
-      // looping through every book so we don't have to hard-code each <li> by hand
-      bookstoreInventory.forEach((book) => {
-        const item = document.createElement("li");
+      fetch("catalog.json")
+        .then(function (response) {
+          if (!response.ok) {
+            throw new Error("Catalog file was not found.");
+          }
+          return response.json();
+        })
+        .then(function (data) {
+          data.bookstoreInventory.forEach(function (book) {
+            const item = document.createElement("li");
+            const title = document.createElement("div");
+            title.className = "book-title";
+            title.textContent = book.title;
 
-        // turning true/false into Yes/No because that's how the sample screenshot showed it
-        const availableText = book.details.available ? "Yes" : "No";
+            const info = document.createElement("div");
+            info.className = "book-info";
+            info.textContent =
+              "Author: " +
+              book.author.firstName +
+              " " +
+              book.author.lastName +
+              "\nPublication Year: " +
+              book.publicationYear +
+              "\nPublisher: " +
+              book.details.publisher +
+              "\nPage Count: " +
+              book.details.pageCount +
+              "\nAvailable: " +
+              (book.details.available ? "Yes" : "No");
 
-        item.innerHTML = `
-        <div class="book-title">${book.title}</div>
-        <div class="book-info">
-          Author: ${book.author.firstName} ${book.author.lastName}<br>
-          Publication Year: ${book.publicationYear}<br>
-          Publisher: ${book.details.publisher}<br>
-          Page Count: ${book.details.pageCount}<br>
-          Available: ${availableText}
-        </div>
-      `;
-
-        listEl.appendChild(item);
-      });
+            item.append(title, info);
+            listEl.appendChild(item);
+          });
+        })
+        .catch(function () {
+          listEl.textContent =
+            "The book list could not be loaded. Start a local server in this folder, then open this page from that server.";
+        });
     </script>
   </body>
 </html>

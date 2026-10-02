@@ -5,8 +5,7 @@ const resultDisplay = document.getElementById("result");
 const errorDisplay = document.getElementById("errorMsg");
 const convertBtn = document.getElementById("convertBtn");
 
-// this function does the math for celsius to fahrenheit
-// using the formula from the assignment: F = (9/5) * C + 32
+// F = (9/5) * C + 32
 function celsiusToFahrenheit(celsius) {
   return (9 / 5) * celsius + 32;
 }

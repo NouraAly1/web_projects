@@ -8,7 +8,6 @@ body {
   padding: 30px;
 }
 
-/* this is to wraps the whole app so it doesn't stretch across the entire screen */
 .todo-container {
   max-width: 600px;
   margin: 0 auto;
@@ -51,7 +50,6 @@ h1 {
   background-color: #43a047;
 }
 
-/* now i need to removes the default bullet points and spacing browsers add to <ul> */
 #taskList {
   list-style: none;
   padding: 0;
@@ -61,8 +59,6 @@ h1 {
   margin-bottom: 12px;
 }
 
-/* Strikethrough look for a task marked complete.
-   This class gets added/removed by JavaScript in Step 3, not typed by hand */
 .completed .task-text {
   text-decoration: line-through;
   color: #999;
@@ -71,6 +67,13 @@ h1 {
 .task-text {
   margin-left: 8px;
   font-size: 16px;
+}
+
+.task-edit-input {
+  margin-left: 8px;
+  padding: 6px;
+  font-size: 16px;
+  width: 60%;
 }
 
 .edit-btn,
